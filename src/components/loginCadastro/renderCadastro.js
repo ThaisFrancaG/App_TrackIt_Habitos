@@ -2,6 +2,7 @@ import logo from "../../assets/images/logoTrackIt.png";
 import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 export default function RenderCadastro() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +14,19 @@ export default function RenderCadastro() {
     event.preventDefault();
     alert("cadastro foi chamado");
     // navigate(`/cadastro`);
+    console.log(email);
+    const requisition = axios.post(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
+      { email: email, name: name, image: photo, password: password }
+    );
+    requisition.then((response) => {
+      console.log(response.data);
+      console.log(response);
+    });
+    requisition.catch((response) => {
+      console.log(response.data);
+      console.log(response);
+    });
   }
   return (
     <MainScreen>

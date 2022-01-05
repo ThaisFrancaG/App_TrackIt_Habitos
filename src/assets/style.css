@@ -20,6 +20,9 @@
   border-radius: 5px;
   color: #ffffff;
   background-color: #52b6ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 body {
