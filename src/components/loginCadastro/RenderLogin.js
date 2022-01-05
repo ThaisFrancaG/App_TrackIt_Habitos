@@ -5,35 +5,43 @@ import { useNavigate, Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import axios from "axios";
 
-export default function RenderLogin() {
+export default function RenderLogin(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputState, setInputState] = useState("");
   const [buttonMessage, setButtonMessage] = useState("Entrar");
+  const navigate = useNavigate();
 
-  const navigate = useNavigate;
   function fazerLogin(event) {
     event.preventDefault();
     setInputState("disabled");
     setButtonMessage(
       <Loader type="ThreeDots" color="#FFFFFF" height={80} width={80} />
     );
-    alert("login foi chamado");
 
     const requisition = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
       { email: email, password: password }
     );
     requisition.then((response) => {
-      console.log("deu bom");
-      console.log(response);
+      navigate(`/hoje`);
+      setInputState("");
+      setButtonMessage("Entrar");
+      console.log(response.data);
+      props.setUserInfo(response.data);
     });
-    requisition.catch((response) => {
-      console.log("deu ruim");
-      console.log(response);
+    requisition.catch((error) => {
+      console.log(error.response);
+      if (error.response.status === 401) {
+        alert("Login não autorizado!" + " " + error.response.data.message);
+      } else if (error.response.status === 422) {
+        alert("Por favor, preencha todos os campos");
+      }
+      setInputState("");
+      setButtonMessage("Entrar");
     });
-    // navigate(`/cadastro`);
   }
+
   return (
     <MainScreen>
       <img src={logo} alt={"TrackIt"} />

@@ -24,7 +24,10 @@
   justify-content: center;
   align-items: center;
 }
-
+@font-face {
+  font-family: "Playball";
+  src: local("Playball"), url("../fonts/Playball-Regular.ttf");
+}
 body {
   height: 100vh;
 
