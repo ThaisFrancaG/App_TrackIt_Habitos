@@ -1,0 +1,31 @@
+.generalForms input {
+  width: 303px;
+  height: 45px;
+  border: 1px solid #d5d5d5;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+::placeholder {
+  color: #dbdbdb;
+  size: 20px;
+  line-height: 25px;
+  padding-left: 20px;
+}
+
+.buttonSubmit {
+  width: 303px;
+  height: 45px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: #52b6ff;
+}
+
+body {
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
