@@ -1,9 +1,14 @@
 import styled from "styled-components";
-import dayjs from "dayjs";
-import { useState, useEffect } from "react";
+import UserContext from "../../context/UserContext";
 
-export default function RenderHoje(props) {
-  console.log(props.userInfo);
+import { useState, useEffect, useContext } from "react";
+import CalculateDate from "./CalculateDate";
+export default function RenderHoje() {
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
-  return <>oi!!</>;
+  return (
+    <>
+      <CalculateDate></CalculateDate>
+    </>
+  );
 }

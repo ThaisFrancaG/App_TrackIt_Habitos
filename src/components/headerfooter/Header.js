@@ -1,17 +1,22 @@
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
 import styled from "styled-components";
-
-export default function Header(props) {
+export default function Header() {
   let currentPath = window.location.pathname;
-  console.log(currentPath);
-  console.log(props);
 
-  if (currentPath === "/hoje") {
+  const { userInfo, setUserInfo } = useContext(UserContext);
+
+  if (
+    currentPath === "/hoje" ||
+    currentPath === "/historico" ||
+    currentPath === "/historico"
+  ) {
     return (
       <>
         <HeaderStyle>
           <Logo>TrackIt</Logo>
           <UserDetails>
-            <img src={props.userInfo.image} alt={props.userInfo.name} />
+            <img src={userInfo.image} alt={userInfo.name} />
           </UserDetails>
         </HeaderStyle>
       </>

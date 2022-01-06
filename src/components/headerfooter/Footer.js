@@ -1,18 +1,28 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export default function Header(props) {
+export default function Header() {
   let currentPath = window.location.pathname;
   console.log(currentPath);
-  console.log(props);
 
-  if (currentPath === "/hoje") {
+  if (
+    currentPath === "/hoje" ||
+    currentPath === "/historico" ||
+    currentPath === "/historico"
+  ) {
     return (
       <>
         <FooterStyle>
-          <Button>Hábitos</Button>
-          <Button>Histórico</Button>
+          <Link to="/habitos">
+            <Button>Hábitos</Button>
+          </Link>
+          <Link to="/historico">
+            <Button>Histórico</Button>
+          </Link>
         </FooterStyle>
-        <Progress>Hoje</Progress>
+        <Link to="/hoje">
+          <Progress>Hoje</Progress>
+        </Link>
       </>
     );
   } else return <></>;
@@ -32,10 +42,11 @@ const FooterStyle = styled.footer`
   bottom: 0;
   left: 0;
 `;
-const Progress = styled.div`
+const Progress = styled.button`
   width: 91px;
   height: 91px;
   border-radius: 50%;
+  border: none;
   background-color: #52b6ff;
   display: flex;
   justify-content: center;

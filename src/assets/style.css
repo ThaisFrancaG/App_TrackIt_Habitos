@@ -28,6 +28,10 @@
   font-family: "Playball";
   src: local("Playball"), url("../fonts/Playball-Regular.ttf");
 }
+
+a {
+  text-decoration: none;
+}
 body {
   height: 100vh;
   background-color: #e5e5e5;

@@ -1,11 +1,13 @@
 import logo from "../../assets/images/logoTrackIt.png";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
+import UserContext from "../../context/UserContext";
 import axios from "axios";
 
-export default function RenderLogin(props) {
+export default function RenderLogin() {
+  const { userInfo, setUserInfo } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputState, setInputState] = useState("");
@@ -27,8 +29,8 @@ export default function RenderLogin(props) {
       navigate(`/hoje`);
       setInputState("");
       setButtonMessage("Entrar");
-      console.log(response.data);
-      props.setUserInfo(response.data);
+
+      setUserInfo(response.data);
     });
     requisition.catch((error) => {
       console.log(error.response);
