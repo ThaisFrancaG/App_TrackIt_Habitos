@@ -30,7 +30,7 @@
 }
 body {
   height: 100vh;
-
+  background-color: #e5e5e5;
   display: flex;
   align-items: center;
   justify-content: center;
