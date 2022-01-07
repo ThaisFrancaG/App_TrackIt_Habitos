@@ -6,9 +6,20 @@ import styled from "styled-components";
 export default function RenderHabitos() {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const [habitDisplay, setHabitDisplay] = useState(false);
-  const [newHabit, setNewHabit] = useState("");
-  console.log(newHabit);
+  const [newHabitName, setNewHabitName] = useState("");
+  const [newHabitDays, setNewHabitDays] = useState([]);
 
+  console.log(newHabitName);
+  function addDay(dayNumber) {
+    alert(dayNumber);
+    alert(newHabitDays);
+    if (newHabitDays.includes(dayNumber)) {
+      let index = newHabitDays.indexOf(dayNumber);
+      newHabitDays.splice(index, 1);
+    } else {
+      setNewHabitDays([...newHabitDays, dayNumber]);
+    }
+  }
   function sendHabit(event) {
     event.preventDefault();
 
@@ -21,32 +32,84 @@ export default function RenderHabitos() {
         <AddButton
           onClick={() => {
             setHabitDisplay(true);
-            alert(habitDisplay);
           }}
         >
           +
         </AddButton>
+
         <AddHabit habitDisplay={habitDisplay}>
           <form onSubmit={sendHabit}>
             <input
               placeholder="nome do hábito"
               type="text"
-              value={newHabit}
-              onChange={(e) => setNewHabit(e.target.value)}
+              value={newHabitName}
+              onChange={(e) => setNewHabitName(e.target.value)}
             />
-            <Button
-              type="reset"
-              onClick={() => {
-                setHabitDisplay(false);
-                setNewHabit("");
-              }}
-              identification="cancel"
-            >
-              Cancelar
-            </Button>
-            <Button type="submit" identification="save">
-              Salvar
-            </Button>
+            <FormElement justifyStart={true}>
+              <HabitDay
+                type="button"
+                onClick={() => addDay(0)}
+                selected={newHabitDays.includes(0) ? true : false}
+              >
+                Do
+              </HabitDay>
+              <HabitDay
+                type="button"
+                onClick={() => addDay(1)}
+                selected={newHabitDays.includes(1) ? true : false}
+              >
+                Se
+              </HabitDay>
+              <HabitDay
+                type="button"
+                onClick={() => addDay(2)}
+                selected={newHabitDays.includes(2) ? true : false}
+              >
+                Te
+              </HabitDay>
+              <HabitDay
+                type="button"
+                onClick={() => addDay(3)}
+                selected={newHabitDays.includes(3) ? true : false}
+              >
+                Qua
+              </HabitDay>
+              <HabitDay
+                type="button"
+                onClick={() => addDay(4)}
+                selected={newHabitDays.includes(4) ? true : false}
+              >
+                Qui
+              </HabitDay>
+              <HabitDay
+                type="button"
+                onClick={() => addDay(5)}
+                selected={newHabitDays.includes(5) ? true : false}
+              >
+                Se
+              </HabitDay>
+              <HabitDay
+                type="button"
+                onClick={() => addDay(6)}
+                selected={newHabitDays.includes(6) ? true : false}
+              >
+                Sab
+              </HabitDay>
+            </FormElement>
+            <FormElement justifyStart={false}>
+              <Button
+                type="reset"
+                onClick={() => {
+                  setHabitDisplay(false);
+                }}
+                identification="cancel"
+              >
+                Cancelar
+              </Button>
+              <Button type="submit" identification="save">
+                Salvar
+              </Button>
+            </FormElement>
           </form>
         </AddHabit>
       </div>
@@ -55,6 +118,19 @@ export default function RenderHabitos() {
   );
 }
 
+const HabitDay = styled.button`
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #d5d5d5;
+  box-sizing: border-box;
+  color: #d5d5d5;
+  font-size: 16px;
+  line-height: 25px;
+  text-align: center;
+  padding: 1px 1px;
+  background: ${(props) => (props.selected ? "blue" : "red")};
+`;
 const Title = styled.div`
   color: #126ba5;
   font-size: 23px;
@@ -86,6 +162,7 @@ const AddHabit = styled.div`
   display: ${(props) => (props.habitDisplay ? "flex" : "none")};
   flex-direction: column;
   align-items: center;
+
   padding: 10px 0;
   box-sizing: border-box;
   width: 90vw;
@@ -93,6 +170,12 @@ const AddHabit = styled.div`
   border-radius: 5px;
   background-color: #ffffff;
 
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+  }
   input {
     height: 45px;
     width: 80vw;
@@ -101,6 +184,12 @@ const AddHabit = styled.div`
   }
 `;
 
+const FormElement = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: ${(props) => (props.justifyStart ? "start" : "end")};
+  column-gap: 5px;
+`;
 export const ReusableTitle = () => {
   return <Title></Title>;
 };
