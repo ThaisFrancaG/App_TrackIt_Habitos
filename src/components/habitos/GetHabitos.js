@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function GetHabitos(props) {
-  const config = { headers: { Authorization: `Bearer ${props.token}` } };
+  const getAuthorization = { Authorization: `Bearer ${props.token}` };
   const [habistList, setHabitsList] = useState([]);
 
   useEffect(() => {
     const requisition = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
-      { headers: { config } }
+      { headers: getAuthorization }
     );
 
     requisition.then((response) => {

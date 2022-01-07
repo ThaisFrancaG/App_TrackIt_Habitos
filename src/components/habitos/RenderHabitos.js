@@ -2,28 +2,59 @@ import UserContext from "../../context/UserContext";
 import { useState, useEffect, useContext } from "react";
 import GetHabitos from "./GetHabitos";
 import styled from "styled-components";
+import axios from "axios";
 
 export default function RenderHabitos() {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const [habitDisplay, setHabitDisplay] = useState(false);
   const [newHabitName, setNewHabitName] = useState("");
   const [newHabitDays, setNewHabitDays] = useState([]);
+  const [totalDaysSelected, setTotalDaysSelected] = useState(0);
 
-  console.log(newHabitName);
+  useEffect(() => {
+    setNewHabitDays(newHabitDays);
+  }, [totalDaysSelected]);
+
   function addDay(dayNumber) {
-    alert(dayNumber);
-    alert(newHabitDays);
     if (newHabitDays.includes(dayNumber)) {
       let index = newHabitDays.indexOf(dayNumber);
       newHabitDays.splice(index, 1);
+      setTotalDaysSelected(totalDaysSelected - 1);
     } else {
       setNewHabitDays([...newHabitDays, dayNumber]);
+      setTotalDaysSelected(totalDaysSelected + 1);
     }
   }
   function sendHabit(event) {
     event.preventDefault();
 
-    alert("habito enviado");
+    const postAuthorization = {
+      Authorization: `Bearer ${userInfo.token}`,
+    };
+
+    const objectToPost = {
+      name: newHabitName,
+      days: newHabitDays,
+    };
+    console.log(objectToPost);
+
+    const requisition = axios.post(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+      objectToPost,
+      { headers: postAuthorization }
+    );
+
+    requisition.then((response) => {
+      alert("habito enviado");
+      console.log(response);
+    });
+
+    requisition.catch((error) => {
+      alert("Houve um erro");
+      console.log(error);
+    });
+    setNewHabitName("");
+    setNewHabitDays([]);
   }
   return (
     <>
@@ -129,7 +160,7 @@ const HabitDay = styled.button`
   line-height: 25px;
   text-align: center;
   padding: 1px 1px;
-  background: ${(props) => (props.selected ? "blue" : "red")};
+  background: ${(props) => (props.selected ? "blue" : "none")};
 `;
 const Title = styled.div`
   color: #126ba5;
