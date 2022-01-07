@@ -1,8 +1,10 @@
 import UserContext from "../../context/UserContext";
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import GetHabitos from "./GetHabitos";
 import styled from "styled-components";
 import axios from "axios";
+import { Main } from "../hoje/RenderHoje";
 
 export default function RenderHabitos() {
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -10,7 +12,15 @@ export default function RenderHabitos() {
   const [newHabitName, setNewHabitName] = useState("");
   const [newHabitDays, setNewHabitDays] = useState([]);
   const [totalDaysSelected, setTotalDaysSelected] = useState(0);
-
+  const [updateList, setUpdateList] = useState(true);
+  console.log(userInfo.token);
+  const navigate = useNavigate();
+  if (userInfo.token === undefined) {
+    alert(
+      "Desculpe, mas parece que você foi desconectado! Você Será redirecionado para a página de Login"
+    );
+    navigate(`/`);
+  }
   useEffect(() => {
     setNewHabitDays(newHabitDays);
   }, [totalDaysSelected]);
@@ -47,17 +57,18 @@ export default function RenderHabitos() {
     requisition.then((response) => {
       alert("habito enviado");
       console.log(response);
+      setNewHabitName("");
+      setNewHabitDays([]);
+      setUpdateList(updateList ? false : true);
     });
 
     requisition.catch((error) => {
       alert("Houve um erro");
       console.log(error);
     });
-    setNewHabitName("");
-    setNewHabitDays([]);
   }
   return (
-    <>
+    <Main>
       <div>
         <Title>Meus Hábitos</Title>
         <AddButton
@@ -144,8 +155,12 @@ export default function RenderHabitos() {
           </form>
         </AddHabit>
       </div>
-      <GetHabitos token={userInfo.token} />
-    </>
+      <GetHabitos
+        token={userInfo.token}
+        updateList={updateList}
+        setUpdateList={setUpdateList}
+      />
+    </Main>
   );
 }
 
@@ -215,7 +230,7 @@ const AddHabit = styled.div`
   }
 `;
 
-const FormElement = styled.div`
+export const FormElement = styled.div`
   width: 100%;
   display: flex;
   justify-content: ${(props) => (props.justifyStart ? "start" : "end")};
@@ -223,4 +238,8 @@ const FormElement = styled.div`
 `;
 export const ReusableTitle = () => {
   return <Title></Title>;
+};
+
+export const ReusableDayButtons = () => {
+  return <HabitDay></HabitDay>;
 };

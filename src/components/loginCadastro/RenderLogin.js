@@ -73,7 +73,7 @@ export default function RenderLogin() {
   );
 }
 
-const MainScreen = styled.div`
+export const MainScreen = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

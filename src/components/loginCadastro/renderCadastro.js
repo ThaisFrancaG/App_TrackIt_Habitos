@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import axios from "axios";
-
+import { MainScreen } from "./RenderLogin";
 export default function RenderCadastro() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -88,14 +88,3 @@ export default function RenderCadastro() {
     </MainScreen>
   );
 }
-
-const MainScreen = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-`;
