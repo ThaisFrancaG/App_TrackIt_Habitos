@@ -1,13 +1,24 @@
-import styled from "styled-components";
 import UserContext from "../../context/UserContext";
-import { ReusableTitle } from "../habitos/RenderHabitos";
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  Title,
+  HabitHeader,
+  HabitName,
+  HabitStreak,
+  HabitCheck,
+  HabitContainer,
+  HabitDetails,
+} from "./StyleHoje";
+import { Main } from "../../assets/StyleReusable";
 import axios from "axios";
 import CalculateDate from "./CalculateDate";
+
+import { BsFillCheckSquareFill } from "react-icons/bs";
+
 export default function RenderHoje() {
   const { userInfo, setUserInfo } = useContext(UserContext);
   const [dailyHabits, setDailyHabits] = useState([]);
+  const [updateHabits, setUpdateHabits] = useState(false);
   const getAuthorization = {
     Authorization: `Bearer ${userInfo.token}`,
   };
@@ -18,30 +29,99 @@ export default function RenderHoje() {
     );
 
     requisition.then((response) => {
-      console.log(response);
       console.log("Deu Bom");
+      setDailyHabits(response.data);
     });
-    requisition.then((error) => {
-      console.log(error);
+    requisition.catch((error) => {
       console.log("Deu Ruim");
     });
-  }, []);
+  }, [updateHabits]);
+  useEffect(() => {
+    console.log(dailyHabits);
+  }, [dailyHabits]);
+
+  function changeHabitStatus(id, status) {
+    console.log(status);
+    if (status === false) {
+      checkAsDone(id);
+    } else if (status === true) {
+      uncheck(id);
+    }
+  }
+
+  function checkAsDone(id) {
+    const requisition = axios.post(
+      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,
+      {},
+      { headers: getAuthorization }
+    );
+
+    requisition.then((response) => {
+      console.log("deu bom");
+      console.log(response);
+      setUpdateHabits(updateHabits ? false : true);
+    });
+    requisition.catch((error) => {
+      console.log("deu ruim");
+      if (error.response.status === 400) {
+        alert(
+          "Desculpe, não foi possível realizar sua requisição. Tente atualizar a página"
+        );
+      } else {
+        alert("Algo de errado. Tente novamente mais tarde");
+      }
+    });
+  }
+
+  function uncheck(id) {
+    const requisition = axios.post(
+      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/uncheck`,
+      {},
+      { headers: getAuthorization }
+    );
+
+    requisition.then((response) => {
+      console.log("deu bom");
+      console.log(response);
+      setUpdateHabits(updateHabits ? false : true);
+    });
+    requisition.catch((error) => {
+      console.log("deu ruim");
+      if (error.response.status === 400) {
+        alert(
+          "Desculpe, não foi possível realizar sua requisição. Tente atualizar a página"
+        );
+      } else {
+        alert("Algo de errado. Tente novamente mais tarde");
+      }
+    });
+  }
+
   return (
     <Main>
       <Title>
         <CalculateDate></CalculateDate>
       </Title>
+      {dailyHabits.map((habit) => (
+        <HabitContainer key={habit.id}>
+          <HabitDetails>
+            <HabitHeader>
+              <HabitName>{habit.name}</HabitName>
+            </HabitHeader>
+            <HabitStreak>
+              <span>Sequência Atual:{habit.currentSequence} dias</span>
+              <span>Seu recorde: {habit.highestSequence} dias</span>
+            </HabitStreak>
+          </HabitDetails>
+          <HabitCheck
+            key={habit.id}
+            onClick={() => changeHabitStatus(habit.id, habit.done)}
+            habitCheck={habit.done}
+          >
+            <BsFillCheckSquareFill />
+          </HabitCheck>
+        </HabitContainer>
+      ))}
     </Main>
   );
 }
-
-const Title = styled.div`
-  color: #126ba5;
-  font-size: 23px;
-  line-height: 30px;
-`;
-
-export const Main = styled.div`
-  background-color: blue;
-  padding: 98px;
-`;

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import GetHabitos from "./GetHabitos";
 import styled from "styled-components";
 import axios from "axios";
-import { Main } from "../hoje/RenderHoje";
+import { Main } from "../../assets/StyleReusable";
 
 export default function RenderHabitos() {
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -15,12 +15,13 @@ export default function RenderHabitos() {
   const [updateList, setUpdateList] = useState(true);
   console.log(userInfo.token);
   const navigate = useNavigate();
-  if (userInfo.token === undefined) {
-    alert(
-      "Desculpe, mas parece que você foi desconectado! Você Será redirecionado para a página de Login"
-    );
-    navigate(`/`);
-  }
+
+  // if (userInfo.token === undefined) {
+  //   // alert(
+  //   //   "Desculpe, mas parece que você foi desconectado! Você Será redirecionado para a página de Login"
+  //   // );
+  //   navigate(`/`);
+  // }
   useEffect(() => {
     setNewHabitDays(newHabitDays);
   }, [totalDaysSelected]);
