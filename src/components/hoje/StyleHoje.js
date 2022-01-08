@@ -1,9 +1,5 @@
 import styled from "styled-components";
-export const Title = styled.div`
-  color: #126ba5;
-  font-size: 23px;
-  line-height: 30px;
-`;
+
 export const HabitHeader = styled.header``;
 export const HabitName = styled.span`
   color: #666666;

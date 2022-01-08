@@ -1,20 +1,20 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { ReusableDayButtons } from "./RenderHabitos";
+
 import { BsTrash } from "react-icons/bs";
 
 export default function GetHabitos(props) {
   const getAuthorization = { Authorization: `Bearer ${props.token}` };
   const [habistList, setHabitsList] = useState([]);
   const weekDays = [
+    { name: "Dom", number: 0 },
     { name: "Seg", number: 1 },
     { name: "Ter", number: 2 },
     { name: "Qua", number: 3 },
     { name: "Qui", number: 4 },
     { name: "Sex", number: 5 },
     { name: "Sab", number: 6 },
-    { name: "Dom", number: 0 },
   ];
   useEffect(() => {
     const requisition = axios.get(
@@ -76,6 +76,9 @@ export default function GetHabitos(props) {
 const HabitDetails = styled.span`
   display: flex;
   justify-content: space-between;
+  font-size: 20px;
+  line-height: 25px;
+  margin-bottom: 10px;
 `;
 const DefaultMessage = styled.span`
   color: #666666;
@@ -84,6 +87,11 @@ const DefaultMessage = styled.span`
 `;
 const Habit = styled.div`
   background-color: white;
+  color: #666666;
+  border-radius: 6px;
+  padding: 13px 16px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 `;
 
 const HabitDay = styled.button`
@@ -92,10 +100,11 @@ const HabitDay = styled.button`
   border-radius: 5px;
   border: 1px solid #d5d5d5;
   box-sizing: border-box;
-  color: #d5d5d5;
+  color: ${(props) => (props.selected ? "#FFFFFF" : "#d5d5d5")};
   font-size: 16px;
   line-height: 25px;
   text-align: center;
   padding: 1px 1px;
-  background: ${(props) => (props.selected ? "blue" : "none")};
+  margin-left: 5px;
+  background: ${(props) => (props.selected ? "#CFCFCF" : "none")};
 `;

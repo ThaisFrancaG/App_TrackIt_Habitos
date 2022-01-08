@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import GetHabitos from "./GetHabitos";
 import styled from "styled-components";
 import axios from "axios";
-import { Main } from "../../assets/StyleReusable";
+import { Main, ScreenHeader } from "../../assets/StyleReusable";
+
+import Header from "../headerfooter/Header";
+import Footer from "../headerfooter/Footer";
 
 export default function RenderHabitos() {
-  const { userInfo, setUserInfo } = useContext(UserContext)[0];
-  const { habitStatus, setHabitStatus } = useContext(UserContext)[1];
+  const { userInfo, habitStatus, setHabitStatus } = useContext(UserContext);
 
   const [habitDisplay, setHabitDisplay] = useState(false);
   const [newHabitName, setNewHabitName] = useState("");
@@ -71,99 +73,106 @@ export default function RenderHabitos() {
     });
   }
   return (
-    <Main>
-      <div>
-        <Title>Meus Hábitos</Title>
-        <AddButton
-          onClick={() => {
-            setHabitDisplay(true);
-          }}
-        >
-          +
-        </AddButton>
+    <>
+      <Header />
+      <Main>
+        <div>
+          <ScreenHeader>
+            {" "}
+            <span>Meus Hábitos</span>
+            <AddButton
+              onClick={() => {
+                setHabitDisplay(true);
+              }}
+            >
+              +
+            </AddButton>
+          </ScreenHeader>
 
-        <AddHabit habitDisplay={habitDisplay}>
-          <form onSubmit={sendHabit}>
-            <input
-              placeholder="nome do hábito"
-              type="text"
-              value={newHabitName}
-              onChange={(e) => setNewHabitName(e.target.value)}
-            />
-            <FormElement justifyStart={true}>
-              <HabitDay
-                type="button"
-                onClick={() => addDay(0)}
-                selected={newHabitDays.includes(0) ? true : false}
-              >
-                Do
-              </HabitDay>
-              <HabitDay
-                type="button"
-                onClick={() => addDay(1)}
-                selected={newHabitDays.includes(1) ? true : false}
-              >
-                Se
-              </HabitDay>
-              <HabitDay
-                type="button"
-                onClick={() => addDay(2)}
-                selected={newHabitDays.includes(2) ? true : false}
-              >
-                Te
-              </HabitDay>
-              <HabitDay
-                type="button"
-                onClick={() => addDay(3)}
-                selected={newHabitDays.includes(3) ? true : false}
-              >
-                Qua
-              </HabitDay>
-              <HabitDay
-                type="button"
-                onClick={() => addDay(4)}
-                selected={newHabitDays.includes(4) ? true : false}
-              >
-                Qui
-              </HabitDay>
-              <HabitDay
-                type="button"
-                onClick={() => addDay(5)}
-                selected={newHabitDays.includes(5) ? true : false}
-              >
-                Se
-              </HabitDay>
-              <HabitDay
-                type="button"
-                onClick={() => addDay(6)}
-                selected={newHabitDays.includes(6) ? true : false}
-              >
-                Sab
-              </HabitDay>
-            </FormElement>
-            <FormElement justifyStart={false}>
-              <Button
-                type="reset"
-                onClick={() => {
-                  setHabitDisplay(false);
-                }}
-                identification="cancel"
-              >
-                Cancelar
-              </Button>
-              <Button type="submit" identification="save">
-                Salvar
-              </Button>
-            </FormElement>
-          </form>
-        </AddHabit>
-      </div>
-      <GetHabitos
-        token={userInfo.token}
-        habitStatus={habitStatus}
-        setHabitStatus={setHabitStatus}
-      />
-    </Main>
+          <AddHabitContainer habitDisplay={habitDisplay}>
+            <form onSubmit={sendHabit}>
+              <input
+                placeholder="nome do hábito"
+                type="text"
+                value={newHabitName}
+                onChange={(e) => setNewHabitName(e.target.value)}
+              />
+              <FormElement justifyStart={true}>
+                <HabitDay
+                  type="button"
+                  onClick={() => addDay(0)}
+                  selected={newHabitDays.includes(0) ? true : false}
+                >
+                  Do
+                </HabitDay>
+                <HabitDay
+                  type="button"
+                  onClick={() => addDay(1)}
+                  selected={newHabitDays.includes(1) ? true : false}
+                >
+                  Se
+                </HabitDay>
+                <HabitDay
+                  type="button"
+                  onClick={() => addDay(2)}
+                  selected={newHabitDays.includes(2) ? true : false}
+                >
+                  Te
+                </HabitDay>
+                <HabitDay
+                  type="button"
+                  onClick={() => addDay(3)}
+                  selected={newHabitDays.includes(3) ? true : false}
+                >
+                  Qua
+                </HabitDay>
+                <HabitDay
+                  type="button"
+                  onClick={() => addDay(4)}
+                  selected={newHabitDays.includes(4) ? true : false}
+                >
+                  Qui
+                </HabitDay>
+                <HabitDay
+                  type="button"
+                  onClick={() => addDay(5)}
+                  selected={newHabitDays.includes(5) ? true : false}
+                >
+                  Se
+                </HabitDay>
+                <HabitDay
+                  type="button"
+                  onClick={() => addDay(6)}
+                  selected={newHabitDays.includes(6) ? true : false}
+                >
+                  Sab
+                </HabitDay>
+              </FormElement>
+              <FormElement justifyStart={false}>
+                <Button
+                  type="reset"
+                  onClick={() => {
+                    setHabitDisplay(false);
+                  }}
+                  identification="cancel"
+                >
+                  Cancelar
+                </Button>
+                <Button type="submit" identification="save">
+                  Salvar
+                </Button>
+              </FormElement>
+            </form>
+          </AddHabitContainer>
+        </div>
+        <GetHabitos
+          token={userInfo.token}
+          habitStatus={habitStatus}
+          setHabitStatus={setHabitStatus}
+        />
+      </Main>
+      <Footer />
+    </>
   );
 }
 
@@ -173,18 +182,14 @@ const HabitDay = styled.button`
   border-radius: 5px;
   border: 1px solid #d5d5d5;
   box-sizing: border-box;
-  color: #d5d5d5;
+  color: ${(props) => (props.selected ? "#FFFFFF" : "#d5d5d5")};
   font-size: 16px;
   line-height: 25px;
   text-align: center;
   padding: 1px 1px;
-  background: ${(props) => (props.selected ? "blue" : "none")};
+  background: ${(props) => (props.selected ? "#CFCFCF" : "none")};
 `;
-const Title = styled.div`
-  color: #126ba5;
-  font-size: 23px;
-  line-height: 30px;
-`;
+
 const Button = styled.button`
   height: 35px;
   min-width: 86px;
@@ -207,10 +212,11 @@ const AddButton = styled.button`
   color: white;
   font-size: 27px;
 `;
-const AddHabit = styled.div`
+const AddHabitContainer = styled.div`
   display: ${(props) => (props.habitDisplay ? "flex" : "none")};
   flex-direction: column;
   align-items: center;
+  margin-bottom: 30px;
 
   padding: 10px 0;
   box-sizing: border-box;
@@ -239,9 +245,6 @@ export const FormElement = styled.div`
   justify-content: ${(props) => (props.justifyStart ? "start" : "end")};
   column-gap: 5px;
 `;
-export const ReusableTitle = () => {
-  return <Title></Title>;
-};
 
 export const ReusableDayButtons = () => {
   return <HabitDay></HabitDay>;

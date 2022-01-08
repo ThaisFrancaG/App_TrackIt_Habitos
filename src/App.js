@@ -5,8 +5,6 @@ import RenderLogin from "./components/loginCadastro/RenderLogin";
 import RenderCadastro from "./components/loginCadastro/RenderCadastro";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import RenderHoje from "./components/hoje/RenderHoje";
-import Header from "./components/headerfooter/Header";
-import Footer from "./components/headerfooter/Footer";
 import RenderHabitos from "./components/habitos/RenderHabitos";
 import RenderHistorico from "./components/historico/RenderHistorico";
 import { UserContext } from "./context/UserContext";
@@ -14,16 +12,20 @@ import { UserContext } from "./context/UserContext";
 export default function App() {
   const [userInfo, setUserInfo] = useState({});
   const [habitStatus, setHabitStatus] = useState(true);
+  const [completionStatus, setCompletionStatus] = useState(0);
   return (
     <div>
       <UserContext.Provider
-        value={[
-          { userInfo, setUserInfo },
-          { habitStatus, setHabitStatus },
-        ]}
+        value={{
+          userInfo,
+          setUserInfo,
+          habitStatus,
+          setHabitStatus,
+          completionStatus,
+          setCompletionStatus,
+        }}
       >
         <BrowserRouter>
-          <Header userInfo={userInfo} />
           <Routes>
             <Route path="/" element={<RenderLogin />}></Route>
             <Route path="/cadastro" element={<RenderCadastro />}></Route>
@@ -32,7 +34,6 @@ export default function App() {
 
             <Route path="/historico" element={<RenderHistorico />}></Route>
           </Routes>
-          <Footer userInfo={userInfo} />
         </BrowserRouter>
       </UserContext.Provider>
     </div>

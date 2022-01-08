@@ -4,12 +4,12 @@ import styled from "styled-components";
 export default function Header() {
   let currentPath = window.location.pathname;
 
-  const { userInfo, setUserInfo } = useContext(UserContext)[0];
+  const { userInfo } = useContext(UserContext);
 
   if (
     currentPath === "/hoje" ||
     currentPath === "/historico" ||
-    currentPath === "/historico"
+    currentPath === "/habitos"
   ) {
     return (
       <>

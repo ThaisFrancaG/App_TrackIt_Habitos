@@ -9,38 +9,44 @@ import {
   HabitContainer,
   HabitDetails,
 } from "./StyleHoje";
-import { Main } from "../../assets/StyleReusable";
+import { Main, ScreenHeader } from "../../assets/StyleReusable";
 import axios from "axios";
 import CalculateDate from "./CalculateDate";
+import CalculateCompletion from "./CalculateCompletion";
+import Header from "../headerfooter/Header";
+import Footer from "../headerfooter/Footer";
 
 import { BsFillCheckSquareFill } from "react-icons/bs";
 
 export default function RenderHoje() {
-  const { userInfo, setUserInfo } = useContext(UserContext)[0];
-  const { habitStatus, setHabitStatus } = useContext(UserContext)[1];
+  const { userInfo, habitStatus, setHabitStatus } = useContext(UserContext);
 
   const [dailyHabits, setDailyHabits] = useState([]);
 
   const getAuthorization = {
     Authorization: `Bearer ${userInfo.token}`,
   };
-
-  console.log(getAuthorization);
-  console.log(userInfo.token);
+  // console.log(userInfo.token);
   useEffect(() => {
+    const getAAuthorization = {
+      Authorization: `Bearer ${userInfo.token}`,
+    };
     const requisition = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
-      { headers: getAuthorization }
+      { headers: getAAuthorization }
     );
 
     requisition.then((response) => {
       console.log("Deu Bom");
       setDailyHabits(response.data);
-      // setHabitStatus(habitStatus ? false : true);
     });
     requisition.catch((error) => {
       console.log("Deu Ruim");
       console.log(error.response);
+
+      // if (error.response.status !== 401) {
+      //   setHabitStatus(habitStatus ? false : true);
+      // }
     });
   }, [habitStatus]);
 
@@ -102,30 +108,35 @@ export default function RenderHoje() {
   }
 
   return (
-    <Main>
-      <Title>
-        <CalculateDate></CalculateDate>
-      </Title>
-      {dailyHabits.map((habit) => (
-        <HabitContainer key={habit.id}>
-          <HabitDetails>
-            <HabitHeader>
-              <HabitName>{habit.name}</HabitName>
-            </HabitHeader>
-            <HabitStreak>
-              <span>Sequência Atual:{habit.currentSequence} dias</span>
-              <span>Seu recorde: {habit.highestSequence} dias</span>
-            </HabitStreak>
-          </HabitDetails>
-          <HabitCheck
-            key={habit.id}
-            onClick={() => changeHabitStatus(habit.id, habit.done)}
-            habitCheck={habit.done}
-          >
-            <BsFillCheckSquareFill />
-          </HabitCheck>
-        </HabitContainer>
-      ))}
-    </Main>
+    <>
+      <Header />
+      <Main>
+        <ScreenHeader>
+          <CalculateDate></CalculateDate>
+          <CalculateCompletion dailyHabits={dailyHabits} />
+        </ScreenHeader>
+        {dailyHabits.map((habit) => (
+          <HabitContainer key={habit.id}>
+            <HabitDetails>
+              <HabitHeader>
+                <HabitName>{habit.name}</HabitName>
+              </HabitHeader>
+              <HabitStreak>
+                <span>Sequência Atual:{habit.currentSequence} dias</span>
+                <span>Seu recorde: {habit.highestSequence} dias</span>
+              </HabitStreak>
+            </HabitDetails>
+            <HabitCheck
+              key={habit.id}
+              onClick={() => changeHabitStatus(habit.id, habit.done)}
+              habitCheck={habit.done}
+            >
+              <BsFillCheckSquareFill />
+            </HabitCheck>
+          </HabitContainer>
+        ))}
+      </Main>
+      <Footer />
+    </>
   );
 }

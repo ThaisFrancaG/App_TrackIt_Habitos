@@ -29,6 +29,11 @@
   src: local("Playball"), url("../fonts/Playball-Regular.ttf");
 }
 
+@font-face {
+  font-family: "LexendDeca";
+  src: local("LexendDeca"), url("../fonts/LexendDeca-VariableFont_wght.ttf");
+}
+
 a {
   text-decoration: none;
 }

@@ -1,14 +1,17 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { UserContext } from "../../context/UserContext";
 import { Link } from "react-router-dom";
-
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 export default function Header() {
   let currentPath = window.location.pathname;
-  console.log(currentPath);
+  const { completionStatus } = useContext(UserContext);
 
   if (
     currentPath === "/hoje" ||
     currentPath === "/historico" ||
-    currentPath === "/historico"
+    currentPath === "/habitos"
   ) {
     return (
       <>
@@ -21,7 +24,19 @@ export default function Header() {
           </Link>
         </FooterStyle>
         <Link to="/hoje">
-          <Progress>Hoje</Progress>
+          <Progress>
+            <CircularProgressbar
+              value={completionStatus}
+              text={"Hoje"}
+              styles={buildStyles({
+                textColor: "#fff",
+                pathTransitionDuration: 0.5,
+                pathColor: "#fff",
+                trailColor: "#52b6ff",
+                backgroundColor: "#52b6ff",
+              })}
+            />
+          </Progress>
         </Link>
       </>
     );
@@ -51,11 +66,12 @@ const Progress = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   position: fixed;
   bottom: 30px;
   left: 40vw;
+  font-family: "LexendDeca";
 `;
+
 const Button = styled.button`
   display: flex;
   justify-content: center;
@@ -65,4 +81,5 @@ const Button = styled.button`
   color: #52b6ff;
   line-height: 23px;
   font-size: 18px;
+  font-family: "LexendDeca";
 `;
