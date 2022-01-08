@@ -9,14 +9,19 @@ import Header from "./components/headerfooter/Header";
 import Footer from "./components/headerfooter/Footer";
 import RenderHabitos from "./components/habitos/RenderHabitos";
 import RenderHistorico from "./components/historico/RenderHistorico";
-import UserContext from "./context/UserContext";
+import { UserContext } from "./context/UserContext";
 
 export default function App() {
   const [userInfo, setUserInfo] = useState({});
-
+  const [habitStatus, setHabitStatus] = useState(true);
   return (
     <div>
-      <UserContext.Provider value={{ userInfo, setUserInfo }}>
+      <UserContext.Provider
+        value={[
+          { userInfo, setUserInfo },
+          { habitStatus, setHabitStatus },
+        ]}
+      >
         <BrowserRouter>
           <Header userInfo={userInfo} />
           <Routes>

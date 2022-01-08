@@ -1,4 +1,4 @@
-import UserContext from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { useState, useEffect, useContext } from "react";
 import {
   Title,
@@ -16,12 +16,17 @@ import CalculateDate from "./CalculateDate";
 import { BsFillCheckSquareFill } from "react-icons/bs";
 
 export default function RenderHoje() {
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext)[0];
+  const { habitStatus, setHabitStatus } = useContext(UserContext)[1];
+
   const [dailyHabits, setDailyHabits] = useState([]);
-  const [updateHabits, setUpdateHabits] = useState(false);
+
   const getAuthorization = {
     Authorization: `Bearer ${userInfo.token}`,
   };
+
+  console.log(getAuthorization);
+  console.log(userInfo.token);
   useEffect(() => {
     const requisition = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
@@ -31,14 +36,13 @@ export default function RenderHoje() {
     requisition.then((response) => {
       console.log("Deu Bom");
       setDailyHabits(response.data);
+      // setHabitStatus(habitStatus ? false : true);
     });
     requisition.catch((error) => {
       console.log("Deu Ruim");
+      console.log(error.response);
     });
-  }, [updateHabits]);
-  useEffect(() => {
-    console.log(dailyHabits);
-  }, [dailyHabits]);
+  }, [habitStatus]);
 
   function changeHabitStatus(id, status) {
     console.log(status);
@@ -59,7 +63,7 @@ export default function RenderHoje() {
     requisition.then((response) => {
       console.log("deu bom");
       console.log(response);
-      setUpdateHabits(updateHabits ? false : true);
+      setHabitStatus(habitStatus ? false : true);
     });
     requisition.catch((error) => {
       console.log("deu ruim");
@@ -83,7 +87,7 @@ export default function RenderHoje() {
     requisition.then((response) => {
       console.log("deu bom");
       console.log(response);
-      setUpdateHabits(updateHabits ? false : true);
+      setHabitStatus(habitStatus ? false : true);
     });
     requisition.catch((error) => {
       console.log("deu ruim");

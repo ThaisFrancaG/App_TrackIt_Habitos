@@ -23,33 +23,29 @@ export default function GetHabitos(props) {
     );
 
     requisition.then((response) => {
-      console.log("deu bom");
       setHabitsList(response.data);
     });
 
     requisition.catch((error) => {
       console.log("deu ruim");
-      console.log(error);
+      console.log(error.response);
     });
-  }, [props.updateList]);
-  console.log(habistList);
+  }, [props.habitStatus]);
 
   function deleteHabit(habitId, habitName) {
-    console.log(habitId);
-    console.log(habitName);
     const requisition = axios.delete(
       `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitId}`,
       { headers: getAuthorization }
     );
     requisition.then((response) => {
       alert(`O Hábito "${habitName}" será deletado`);
-      console.log(response);
-      props.setUpdateList(props.updateList ? false : true);
+
+      props.setHabitStatus(props.habitStatus ? false : true);
     });
 
     requisition.catch((error) => {
       alert("Algo deu errado, tente novamente mais tarde");
-      console.log(error);
+      console.log(error.response);
     });
   }
   if (habistList.length === 0) {

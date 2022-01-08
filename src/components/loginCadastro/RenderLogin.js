@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
-import UserContext from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import axios from "axios";
 
 export default function RenderLogin() {
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext)[0];
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputState, setInputState] = useState("");

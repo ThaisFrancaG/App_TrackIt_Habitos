@@ -1,4 +1,4 @@
-import UserContext from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import GetHabitos from "./GetHabitos";
@@ -7,12 +7,14 @@ import axios from "axios";
 import { Main } from "../../assets/StyleReusable";
 
 export default function RenderHabitos() {
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext)[0];
+  const { habitStatus, setHabitStatus } = useContext(UserContext)[1];
+
   const [habitDisplay, setHabitDisplay] = useState(false);
   const [newHabitName, setNewHabitName] = useState("");
   const [newHabitDays, setNewHabitDays] = useState([]);
   const [totalDaysSelected, setTotalDaysSelected] = useState(0);
-  const [updateList, setUpdateList] = useState(true);
+
   console.log(userInfo.token);
   const navigate = useNavigate();
 
@@ -60,7 +62,7 @@ export default function RenderHabitos() {
       console.log(response);
       setNewHabitName("");
       setNewHabitDays([]);
-      setUpdateList(updateList ? false : true);
+      setHabitStatus(habitStatus ? false : true);
     });
 
     requisition.catch((error) => {
@@ -158,8 +160,8 @@ export default function RenderHabitos() {
       </div>
       <GetHabitos
         token={userInfo.token}
-        updateList={updateList}
-        setUpdateList={setUpdateList}
+        habitStatus={habitStatus}
+        setHabitStatus={setHabitStatus}
       />
     </Main>
   );

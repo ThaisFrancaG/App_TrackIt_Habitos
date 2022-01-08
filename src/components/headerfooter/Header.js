@@ -1,10 +1,10 @@
 import { useContext } from "react";
-import UserContext from "../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import styled from "styled-components";
 export default function Header() {
   let currentPath = window.location.pathname;
 
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext)[0];
 
   if (
     currentPath === "/hoje" ||
