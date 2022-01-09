@@ -16,11 +16,14 @@ import CalculateDate from "./CalculateDate";
 import CalculateCompletion from "./CalculateCompletion";
 import Header from "../headerfooter/Header";
 import Footer from "../headerfooter/Footer";
+import Loader from "react-loader-spinner";
+import { Loading } from "../habitos/StyleHabitos";
 
 import { BsFillCheckSquareFill } from "react-icons/bs";
 
 export default function RenderHoje() {
   const { userInfo, habitStatus, setHabitStatus } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
 
   const [dailyHabits, setDailyHabits] = useState([]);
 
@@ -29,21 +32,19 @@ export default function RenderHoje() {
   };
 
   useEffect(() => {
-    const getAAuthorization = {
-      Authorization: `Bearer ${userInfo.token}`,
-    };
     const requisition = axios.get(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
-      { headers: getAAuthorization }
+      { headers: getAuthorization }
     );
 
     requisition.then((response) => {
-      console.log("Deu Bom");
       setDailyHabits(response.data);
+      setLoading(false);
     });
     requisition.catch((error) => {
       console.log("Deu Ruim");
       console.log(error.response);
+      setLoading(false);
     });
   }, [habitStatus]);
 
@@ -105,52 +106,66 @@ export default function RenderHoje() {
     });
   }
 
-  return (
-    <>
-      <Header />
-      <Main>
-        <ScreenHeader>
-          <CalculateDate></CalculateDate>
-          <CalculateCompletion dailyHabits={dailyHabits} />
-        </ScreenHeader>
-        {dailyHabits.map((habit) => (
-          <HabitContainer key={habit.id}>
-            <HabitDetails>
-              <HabitHeader>
-                <HabitName>{habit.name}</HabitName>
-              </HabitHeader>
-              <HabitStreak>
-                <span>
-                  Sequência Atual:
-                  <StreakValue
-                    current={habit.currentSequence}
-                    highest={habit.highestSequence}
-                  >
-                    {habit.currentSequence} dias
-                  </StreakValue>
-                </span>
-                <span>
-                  Seu recorde:
-                  <StreakValue
-                    current={habit.currentSequence}
-                    highest={habit.highestSequence}
-                  >
-                    {habit.highestSequence} dias
-                  </StreakValue>
-                </span>
-              </HabitStreak>
-            </HabitDetails>
-            <HabitCheck
-              key={habit.id}
-              onClick={() => changeHabitStatus(habit.id, habit.done)}
-              habitCheck={habit.done}
-            >
-              <BsFillCheckSquareFill />
-            </HabitCheck>
-          </HabitContainer>
-        ))}
-      </Main>
-      <Footer />
-    </>
-  );
+  if (loading === false) {
+    return (
+      <>
+        <Header />
+        <Main>
+          <ScreenHeader>
+            <CalculateDate></CalculateDate>
+            <CalculateCompletion dailyHabits={dailyHabits} />
+          </ScreenHeader>
+          {dailyHabits.map((habit) => (
+            <HabitContainer key={habit.id}>
+              <HabitDetails>
+                <HabitHeader>
+                  <HabitName>{habit.name}</HabitName>
+                </HabitHeader>
+                <HabitStreak>
+                  <span>
+                    Sequência Atual:
+                    <StreakValue
+                      current={habit.currentSequence}
+                      highest={habit.highestSequence}
+                    >
+                      {habit.currentSequence} dias
+                    </StreakValue>
+                  </span>
+                  <span>
+                    Seu recorde:
+                    <StreakValue
+                      current={habit.currentSequence}
+                      highest={habit.highestSequence}
+                    >
+                      {habit.highestSequence} dias
+                    </StreakValue>
+                  </span>
+                </HabitStreak>
+              </HabitDetails>
+              <HabitCheck
+                key={habit.id}
+                onClick={() => changeHabitStatus(habit.id, habit.done)}
+                habitCheck={habit.done}
+              >
+                <BsFillCheckSquareFill />
+              </HabitCheck>
+            </HabitContainer>
+          ))}
+        </Main>
+        <Footer />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Header />
+        <Main>
+          <Loading>
+            <Loader type="ThreeDots" color="#52B6FF" height={200} width={200} />
+          </Loading>
+        </Main>
+        <Footer />
+      </>
+    );
+  }
 }

@@ -1,6 +1,6 @@
 import "./assets/style.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import RenderLogin from "./components/loginCadastro/RenderLogin";
 import RenderCadastro from "./components/loginCadastro/RenderCadastro";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -10,9 +10,14 @@ import RenderHistorico from "./components/historico/RenderHistorico";
 import { UserContext } from "./context/UserContext";
 
 export default function App() {
-  const [userInfo, setUserInfo] = useState({});
   const [habitStatus, setHabitStatus] = useState(true);
   const [completionStatus, setCompletionStatus] = useState(0);
+  const [localLogin, setLocalLogin] = useState("");
+
+  const [userInfo, setUserInfo] = useState(
+    JSON.parse(localStorage.getItem("userDetails"))
+  );
+
   return (
     <div>
       <UserContext.Provider
@@ -23,6 +28,8 @@ export default function App() {
           setHabitStatus,
           completionStatus,
           setCompletionStatus,
+          localLogin,
+          setLocalLogin,
         }}
       >
         <BrowserRouter>

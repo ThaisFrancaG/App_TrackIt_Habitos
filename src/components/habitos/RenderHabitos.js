@@ -20,7 +20,6 @@ export default function RenderHabitos() {
   const [newHabitName, setNewHabitName] = useState("");
   const [newHabitDays, setNewHabitDays] = useState([]);
   const [totalDaysSelected, setTotalDaysSelected] = useState(0);
-
   const [inputState, setInputState] = useState("");
 
   const weekDays = [
