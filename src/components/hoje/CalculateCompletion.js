@@ -1,9 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../context/UserContext";
+import Loader from "react-loader-spinner";
 
 export default function CalculateCompletion(props) {
   const { completionStatus, setCompletionStatus } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+
   let habitsCompletion = 0;
   let habitsTotal = props.dailyHabits.length;
 

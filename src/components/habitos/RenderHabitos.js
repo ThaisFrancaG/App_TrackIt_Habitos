@@ -1,11 +1,15 @@
 import { UserContext } from "../../context/UserContext";
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import GetHabitos from "./GetHabitos";
-import styled from "styled-components";
 import axios from "axios";
 import { Main, ScreenHeader } from "../../assets/StyleReusable";
-
+import {
+  HabitDay,
+  Button,
+  AddButton,
+  AddHabitContainer,
+  FormElement,
+} from "./StyleHabitos";
 import Header from "../headerfooter/Header";
 import Footer from "../headerfooter/Footer";
 
@@ -17,15 +21,17 @@ export default function RenderHabitos() {
   const [newHabitDays, setNewHabitDays] = useState([]);
   const [totalDaysSelected, setTotalDaysSelected] = useState(0);
 
-  console.log(userInfo.token);
-  const navigate = useNavigate();
+  const [inputState, setInputState] = useState("");
 
-  // if (userInfo.token === undefined) {
-  //   // alert(
-  //   //   "Desculpe, mas parece que você foi desconectado! Você Será redirecionado para a página de Login"
-  //   // );
-  //   navigate(`/`);
-  // }
+  const weekDays = [
+    { name: "Dom", number: 0 },
+    { name: "Seg", number: 1 },
+    { name: "Ter", number: 2 },
+    { name: "Qua", number: 3 },
+    { name: "Qui", number: 4 },
+    { name: "Sex", number: 5 },
+    { name: "Sab", number: 6 },
+  ];
   useEffect(() => {
     setNewHabitDays(newHabitDays);
   }, [totalDaysSelected]);
@@ -42,7 +48,7 @@ export default function RenderHabitos() {
   }
   function sendHabit(event) {
     event.preventDefault();
-
+    setInputState("disabled");
     const postAuthorization = {
       Authorization: `Bearer ${userInfo.token}`,
     };
@@ -51,7 +57,6 @@ export default function RenderHabitos() {
       name: newHabitName,
       days: newHabitDays,
     };
-    console.log(objectToPost);
 
     const requisition = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
@@ -60,8 +65,8 @@ export default function RenderHabitos() {
     );
 
     requisition.then((response) => {
-      alert("habito enviado");
-      console.log(response);
+      alert("Novo hábito enviado!");
+      setInputState("");
       setNewHabitName("");
       setNewHabitDays([]);
       setHabitStatus(habitStatus ? false : true);
@@ -69,6 +74,7 @@ export default function RenderHabitos() {
 
     requisition.catch((error) => {
       alert("Houve um erro");
+      setInputState("");
       console.log(error);
     });
   }
@@ -95,58 +101,20 @@ export default function RenderHabitos() {
                 placeholder="nome do hábito"
                 type="text"
                 value={newHabitName}
+                disabled={inputState}
                 onChange={(e) => setNewHabitName(e.target.value)}
               />
               <FormElement justifyStart={true}>
-                <HabitDay
-                  type="button"
-                  onClick={() => addDay(0)}
-                  selected={newHabitDays.includes(0) ? true : false}
-                >
-                  Do
-                </HabitDay>
-                <HabitDay
-                  type="button"
-                  onClick={() => addDay(1)}
-                  selected={newHabitDays.includes(1) ? true : false}
-                >
-                  Se
-                </HabitDay>
-                <HabitDay
-                  type="button"
-                  onClick={() => addDay(2)}
-                  selected={newHabitDays.includes(2) ? true : false}
-                >
-                  Te
-                </HabitDay>
-                <HabitDay
-                  type="button"
-                  onClick={() => addDay(3)}
-                  selected={newHabitDays.includes(3) ? true : false}
-                >
-                  Qua
-                </HabitDay>
-                <HabitDay
-                  type="button"
-                  onClick={() => addDay(4)}
-                  selected={newHabitDays.includes(4) ? true : false}
-                >
-                  Qui
-                </HabitDay>
-                <HabitDay
-                  type="button"
-                  onClick={() => addDay(5)}
-                  selected={newHabitDays.includes(5) ? true : false}
-                >
-                  Se
-                </HabitDay>
-                <HabitDay
-                  type="button"
-                  onClick={() => addDay(6)}
-                  selected={newHabitDays.includes(6) ? true : false}
-                >
-                  Sab
-                </HabitDay>
+                {weekDays.map((day) => (
+                  <HabitDay
+                    type="button"
+                    onClick={() => addDay(day.number)}
+                    selected={newHabitDays.includes(day.number) ? true : false}
+                  >
+                    {day.name}
+                  </HabitDay>
+                ))}
+                {/*abitDay> */}
               </FormElement>
               <FormElement justifyStart={false}>
                 <Button
@@ -158,7 +126,11 @@ export default function RenderHabitos() {
                 >
                   Cancelar
                 </Button>
-                <Button type="submit" identification="save">
+                <Button
+                  disabled={inputState}
+                  type="submit"
+                  identification="save"
+                >
                   Salvar
                 </Button>
               </FormElement>
@@ -175,77 +147,3 @@ export default function RenderHabitos() {
     </>
   );
 }
-
-const HabitDay = styled.button`
-  width: 35px;
-  height: 35px;
-  border-radius: 5px;
-  border: 1px solid #d5d5d5;
-  box-sizing: border-box;
-  color: ${(props) => (props.selected ? "#FFFFFF" : "#d5d5d5")};
-  font-size: 16px;
-  line-height: 25px;
-  text-align: center;
-  padding: 1px 1px;
-  background: ${(props) => (props.selected ? "#CFCFCF" : "none")};
-`;
-
-const Button = styled.button`
-  height: 35px;
-  min-width: 86px;
-  background-color: ${(props) =>
-    props.identification === "cancel" ? "#FFFFFF" : "#52B6FF"};
-  color: ${(props) =>
-    props.identification === "cancel" ? "#52B6FF" : "#FFFFFF"};
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  line-height: 20px;
-`;
-
-const AddButton = styled.button`
-  width: 40px;
-  height: 35px;
-  border-radius: 5px;
-  border: none;
-  background-color: #52b6ff;
-  color: white;
-  font-size: 27px;
-`;
-const AddHabitContainer = styled.div`
-  display: ${(props) => (props.habitDisplay ? "flex" : "none")};
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-
-  padding: 10px 0;
-  box-sizing: border-box;
-  width: 90vw;
-  height: 180px;
-  border-radius: 5px;
-  background-color: #ffffff;
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 10px;
-  }
-  input {
-    height: 45px;
-    width: 80vw;
-    border: 1px solid #d5d5d5;
-    border-radius: 5px;
-  }
-`;
-
-export const FormElement = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: ${(props) => (props.justifyStart ? "start" : "end")};
-  column-gap: 5px;
-`;
-
-export const ReusableDayButtons = () => {
-  return <HabitDay></HabitDay>;
-};

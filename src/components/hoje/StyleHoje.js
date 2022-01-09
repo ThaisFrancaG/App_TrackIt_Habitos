@@ -37,3 +37,8 @@ export const HabitContainer = styled.div`
 `;
 
 export const HabitDetails = styled.div``;
+
+export const StreakValue = styled.span`
+  color: ${(props) =>
+    props.current === props.highest ? "#8FC549" : "#666666"};
+`;

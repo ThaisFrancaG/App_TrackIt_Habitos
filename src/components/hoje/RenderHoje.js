@@ -8,6 +8,7 @@ import {
   HabitCheck,
   HabitContainer,
   HabitDetails,
+  StreakValue,
 } from "./StyleHoje";
 import { Main, ScreenHeader } from "../../assets/StyleReusable";
 import axios from "axios";
@@ -26,7 +27,7 @@ export default function RenderHoje() {
   const getAuthorization = {
     Authorization: `Bearer ${userInfo.token}`,
   };
-  // console.log(userInfo.token);
+
   useEffect(() => {
     const getAAuthorization = {
       Authorization: `Bearer ${userInfo.token}`,
@@ -43,10 +44,6 @@ export default function RenderHoje() {
     requisition.catch((error) => {
       console.log("Deu Ruim");
       console.log(error.response);
-
-      // if (error.response.status !== 401) {
-      //   setHabitStatus(habitStatus ? false : true);
-      // }
     });
   }, [habitStatus]);
 
@@ -58,6 +55,7 @@ export default function RenderHoje() {
       uncheck(id);
     }
   }
+  console.log(dailyHabits);
 
   function checkAsDone(id) {
     const requisition = axios.post(
@@ -122,8 +120,24 @@ export default function RenderHoje() {
                 <HabitName>{habit.name}</HabitName>
               </HabitHeader>
               <HabitStreak>
-                <span>Sequência Atual:{habit.currentSequence} dias</span>
-                <span>Seu recorde: {habit.highestSequence} dias</span>
+                <span>
+                  Sequência Atual:
+                  <StreakValue
+                    current={habit.currentSequence}
+                    highest={habit.highestSequence}
+                  >
+                    {habit.currentSequence} dias
+                  </StreakValue>
+                </span>
+                <span>
+                  Seu recorde:
+                  <StreakValue
+                    current={habit.currentSequence}
+                    highest={habit.highestSequence}
+                  >
+                    {habit.highestSequence} dias
+                  </StreakValue>
+                </span>
               </HabitStreak>
             </HabitDetails>
             <HabitCheck
