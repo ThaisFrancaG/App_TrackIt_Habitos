@@ -1,7 +1,6 @@
 import { UserContext } from "../../context/UserContext";
 import { useState, useEffect, useContext } from "react";
 import {
-  Title,
   HabitHeader,
   HabitName,
   HabitStreak,
@@ -49,7 +48,6 @@ export default function RenderHoje() {
   }, [habitStatus]);
 
   function changeHabitStatus(id, status) {
-    console.log(status);
     if (status === false) {
       checkAsDone(id);
     } else if (status === true) {
@@ -113,7 +111,10 @@ export default function RenderHoje() {
         <Main>
           <ScreenHeader>
             <CalculateDate></CalculateDate>
-            <CalculateCompletion dailyHabits={dailyHabits} />
+            <CalculateCompletion
+              habitStatus={habitStatus}
+              dailyHabits={dailyHabits}
+            />
           </ScreenHeader>
           {dailyHabits.map((habit) => (
             <HabitContainer key={habit.id}>

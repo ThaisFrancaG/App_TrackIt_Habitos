@@ -1,7 +1,7 @@
 import Header from "../HeaderFooter/Header";
 import Footer from "../HeaderFooter/Footer";
 import { Main, ScreenHeader } from "../../assets/StyleReusable";
-import { DefaultMessage } from "../habitos/StyleHabitos";
+import { DefaultMessage } from "../Habitos/StyleHabitos";
 export default function RenderHistorico() {
   return (
     <>
