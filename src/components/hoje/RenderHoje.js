@@ -14,10 +14,10 @@ import { Main, ScreenHeader } from "../../assets/StyleReusable";
 import axios from "axios";
 import CalculateDate from "./CalculateDate";
 import CalculateCompletion from "./CalculateCompletion";
-import Header from "../headerfooter/Header";
-import Footer from "../headerfooter/Footer";
+import Header from "../HeaderFooter/Header";
+import Footer from "../HeaderFooter/Footer";
 import Loader from "react-loader-spinner";
-import { Loading } from "../habitos/StyleHabitos";
+import { Loading } from "../Habitos/StyleHabitos";
 
 import { BsFillCheckSquareFill } from "react-icons/bs";
 

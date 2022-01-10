@@ -10,8 +10,8 @@ import {
   AddHabitContainer,
   FormElement,
 } from "./StyleHabitos";
-import Header from "../headerfooter/Header";
-import Footer from "../headerfooter/Footer";
+import Header from "../HeaderFooter/Header";
+import Footer from "../HeaderFooter/Footer";
 
 export default function RenderHabitos() {
   const { userInfo, habitStatus, setHabitStatus } = useContext(UserContext);
