@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { UserContext } from "../../context/UserContext";
 
@@ -13,6 +13,10 @@ export default function CalculateCompletion(props) {
       habitsCompletion++;
     }
   });
+  useEffect(() => {
+    let calculation = parseInt((habitsCompletion / habitsTotal) * 100);
+    setCompletionStatus(calculation);
+  }, []);
 
   if (habitsCompletion === 0) {
     return (
@@ -23,8 +27,6 @@ export default function CalculateCompletion(props) {
       </>
     );
   } else {
-    let calculation = parseInt((habitsCompletion / habitsTotal) * 100);
-    setCompletionStatus(calculation);
     return (
       <CompletionMessage done={true}>
         {completionStatus}% dos hábitos concluídos
