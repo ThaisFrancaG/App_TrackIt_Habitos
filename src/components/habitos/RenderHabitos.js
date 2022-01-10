@@ -106,6 +106,7 @@ export default function RenderHabitos() {
               <FormElement justifyStart={true}>
                 {weekDays.map((day) => (
                   <HabitDay
+                    key={day.number}
                     type="button"
                     onClick={() => addDay(day.number)}
                     selected={newHabitDays.includes(day.number) ? true : false}
@@ -113,7 +114,6 @@ export default function RenderHabitos() {
                     {day.name}
                   </HabitDay>
                 ))}
-                {/*abitDay> */}
               </FormElement>
               <FormElement justifyStart={false}>
                 <Button

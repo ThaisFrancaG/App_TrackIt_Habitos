@@ -80,13 +80,13 @@ export default function GetHabitos(props) {
       );
     } else {
       return habistList.map((habit) => (
-        <Habit id={habit.id}>
+        <Habit id={habit.id} key={habit.id}>
           <HabitDetails>
             {habit.name}
             <BsTrash onClick={() => deleteHabit(habit.id, habit.name)} />
           </HabitDetails>
           <div>
-            {weekDays.map((day) => (
+            {weekDays.map((day, i) => (
               <HabitDay
                 selected={habit.days.includes(day.number) ? true : false}
               >
