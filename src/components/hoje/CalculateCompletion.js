@@ -5,18 +5,16 @@ import { UserContext } from "../../context/UserContext";
 export default function CalculateCompletion(props) {
   const { completionStatus, setCompletionStatus } = useContext(UserContext);
 
-  useEffect(() => {
-    let habitsCompletion = 0;
-    let habitsTotal = props.dailyHabits.length;
+  let habitsCompletion = 0;
+  let habitsTotal = props.dailyHabits.length;
 
-    props.dailyHabits.map((habit) => {
-      if (habit.done === true) {
-        habitsCompletion++;
-      }
-    });
-    let calculation = parseInt((habitsCompletion / habitsTotal) * 100);
-    setCompletionStatus(calculation);
-  }, [props.habitStatus]);
+  props.dailyHabits.map((habit) => {
+    if (habit.done === true) {
+      habitsCompletion++;
+    }
+  });
+  let calculation = parseInt((habitsCompletion / habitsTotal) * 100);
+  setCompletionStatus(calculation);
 
   if (completionStatus === 0) {
     return (
