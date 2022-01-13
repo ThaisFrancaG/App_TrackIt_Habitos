@@ -1,12 +1,12 @@
 import "./assets/style.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import RenderLogin from "./components/LoginCadastro/RenderLogin";
-import RenderCadastro from "./components/LoginCadastro/RenderCadastro";
+import RenderLogin from "./Components/LoginCadastro/RenderLogin";
+import RenderCadastro from "./Components/LoginCadastro/RenderCadastro";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import RenderHoje from "./components/Hoje/RenderHoje";
-import RenderHabitos from "./components/Habitos/RenderHabitos";
-import RenderHistorico from "./components/Historico/RenderHistorico";
+import RenderHoje from "./Components/Hoje/RenderHoje";
+import RenderHabitos from "./Components/Habitos/RenderHabitos";
+import RenderHistorico from "./Components/Historico/RenderHistorico";
 import { UserContext } from "./context/UserContext";
 
 export default function App() {
