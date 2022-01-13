@@ -18,6 +18,8 @@ export default function App() {
     JSON.parse(localStorage.getItem("userDetails"))
   );
 
+  //Tá tudo minusvulo
+
   return (
     <div>
       <UserContext.Provider
