@@ -1,6 +1,8 @@
 # TrackIt: Criação e Controle de Hábitos!
 
+<figure align:"center">
 <img src = "src/assets/images/logoTrackIt.png">
+</figure>
 
 ## Qual a lógica?
 
@@ -9,9 +11,8 @@ A ideia é ter um aplicativo que funcione como uma agenda de hábitos, na qual �
 - Cadastrar Hábitos que deseja realizar, incluíndo os dias em que planeja os fazer
 - Conferir de forma rápida quais seus hábitos planjeados para o dia bem como os marcar como feitos (ou não)
 - Acompanhar seu progresso ao longo do dia!
-<figure style = "text-align:center">
+<figure align:"center">
 <img src="src/assets/images/telasPrincipais.png">
-<figcaption align = "center"><b>Telas referentes ao "hoje" e aos "hábitos"</b></figcaption>
 </figure>
 
 ## Como Usar?
@@ -43,3 +44,14 @@ O aplicativo TrackIt foi criado usando:
 - [Prettier](https://prettier.io/) -
 
 - [Styled-Components](https://www.styled-components.com/)
+
+## Projetos Futuros?
+
+O projeto ainda tem alguns ajustes a serem feitos no futuro, a fim de melhorar a usabilidade e a experiência do usuário. Inclusive, se tiver sugestões, elas serão mais do que bem-vindas!
+Atualmente, as atualizações planejadas são:
+
+- Adicionar uma foto de usuário padrão, para quando a pessoa não informar uma no momento de cadastro
+- Criação de calendário na tela de Histórico
+- Criar opção de log-out
+- Criar opção de recebimento de imagens por outros meios além de URL
+- Correções de passagens entre telas
