@@ -9,7 +9,7 @@ A ideia é ter um aplicativo que funcione como uma agenda de hábitos, na qual �
 - Cadastrar Hábitos que deseja realizar, incluíndo os dias em que planeja os fazer
 - Conferir de forma rápida quais seus hábitos planjeados para o dia bem como os marcar como feitos (ou não)
 - Acompanhar seu progresso ao longo do dia!
-<figure>
+<figure style = "text-align:center">
 <img src="src/assets/images/telasPrincipais.png">
 <figcaption align = "center"><b>Telas referentes ao "hoje" e aos "hábitos"</b></figcaption>
 </figure>
