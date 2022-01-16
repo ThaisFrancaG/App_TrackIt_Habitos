@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# TrackIt: Criação e Controle de Hábitos!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src = "src/assets/images/lohoTrackIt.png">
 
 ## Available Scripts
 
