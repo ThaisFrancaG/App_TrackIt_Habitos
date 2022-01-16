@@ -1,70 +1,45 @@
 # TrackIt: Criação e Controle de Hábitos!
 
-<img src = "src/assets/images/lohoTrackIt.png">
+<img src = "src/assets/images/logoTrackIt.png">
 
-## Available Scripts
+## Qual a lógica?
 
-In the project directory, you can run:
+A ideia é ter um aplicativo que funcione como uma agenda de hábitos, na qual é possível:
 
-### `npm start`
+- Cadastrar Hábitos que deseja realizar, incluíndo os dias em que planeja os fazer
+- Conferir de forma rápida quais seus hábitos planjeados para o dia bem como os marcar como feitos (ou não)
+- Acompanhar seu progresso ao longo do dia!
+<figure>
+<img src="src/assets/images/telasPrincipais.png">
+<figcaption align = "center"><b>Telas referentes ao "hoje" e aos "hábitos"</b></figcaption>
+</figure>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Como Usar?
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+A forma mais direta é ir direto no link:
+<a>https://projeto-driven-track-it.vercel.app/</a>
 
-### `npm test`
+Mas, se quiser ver melhor as funcionalidade e o código em si, você também pode baixar o repositório para sua máquina, através dos seguintes passos:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone o repositório
+   (se não souber como, confira: https://docs.github.com/pt/repositories/creating-and-managing-repositories/cloning-a-repository)
 
-### `npm run build`
+2. Instale as dependências necessárias (no caso, digitar "npm install" na pasta onde clonou o repositório deverá ser suficiente)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Depois de instaladas, basta digitar "npm start" no terminal, e o aplicativo será iniciado no seu navegador!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. Com o aplicativo iniciado, faça seu cadastro (on login), com nome, senha, email e foto de perfil (que deverá ser no formato URL), e ai é só começar a usar o aplicativo!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## E como ele foi feito?
 
-### `npm run eject`
+O aplicativo TrackIt foi criado usando:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- [React-Native](https://facebook.github.io/react-native/)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [React-Navigation](https://reactnavigation.org/docs/en/getting-started.html)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [Axios](https://github.com/axios/axios)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- [Prettier](https://prettier.io/) -
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [Styled-Components](https://www.styled-components.com/)
